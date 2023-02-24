@@ -1,5 +1,6 @@
 # PocketBase
 backend/pocketbase.exe
 backend/pb_data
+backend/pb_migrations
 
 backend/node_modules
