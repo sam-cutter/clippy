@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/sam-cutter/clippy#readme",
   "dependencies": {
+    "pocketbase": "^0.11.1",
     "typescript": "^4.9.5"
   }
 }
