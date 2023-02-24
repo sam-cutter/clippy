@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/sam-cutter/clippy/issues"
   },
-  "homepage": "https://github.com/sam-cutter/clippy#readme"
+  "homepage": "https://github.com/sam-cutter/clippy#readme",
+  "dependencies": {
+    "typescript": "^4.9.5"
+  }
 }
