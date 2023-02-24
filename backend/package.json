@@ -4,7 +4,8 @@
   "description": "A shared clipboard app with PocketBase and Next.js.",
   "main": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx ts-node auto-deleter.ts"
   },
   "repository": {
     "type": "git",
@@ -17,9 +18,8 @@
   },
   "homepage": "https://github.com/sam-cutter/clippy#readme",
   "dependencies": {
-    "@types/node": "^18.14.1",
     "dotenv": "^16.0.3",
-    "pocketbase": "^0.11.1",
-    "typescript": "^4.9.5"
-  }
+    "pocketbase": "^0.11.1"
+  },
+  "type": "module"
 }
