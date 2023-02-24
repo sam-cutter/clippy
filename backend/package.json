@@ -1,0 +1,19 @@
+{
+  "name": "clippy",
+  "version": "1.0.0",
+  "description": "A shared clipboard app with PocketBase and Next.js.",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sam-cutter/clippy.git"
+  },
+  "author": "Sam Cutter",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sam-cutter/clippy/issues"
+  },
+  "homepage": "https://github.com/sam-cutter/clippy#readme"
+}
