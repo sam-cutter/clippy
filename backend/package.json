@@ -5,7 +5,7 @@
   "main": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node auto-deleter.js"
+    "start": "node ./src/auto-deleter.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   "homepage": "https://github.com/sam-cutter/clippy#readme",
   "dependencies": {
     "dotenv": "^16.0.3",
+    "eventsource": "^2.0.2",
     "pocketbase": "^0.11.1"
   },
   "type": "module"
