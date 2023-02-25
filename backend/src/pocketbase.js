@@ -36,3 +36,11 @@ export async function initPocketBase() {
     throw new Error("Error initializing PocketBase.", error);
   }
 }
+
+export async function deleteClip(clipID, pb) {
+  try {
+    await pb.collection("clips").delete(clipID);
+  } catch {
+    // This will send the error to a log file
+  }
+}

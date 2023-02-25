@@ -1,4 +1,4 @@
-import { initPocketBase } from "./pocketbase.js";
+import { initPocketBase, deleteClip } from "./pocketbase.js";
 import PriorityQueue from "priorityqueuejs";
 
 try {
@@ -31,19 +31,11 @@ try {
       const expirationTime = clipsQueue.peek().priority;
 
       if (now >= expirationTime) {
-        deleteClip(clipID);
+        deleteClip(clipID, pb);
         clipsQueue.deq();
       } else {
         break;
       }
-    }
-  }
-
-  async function deleteClip(clipID) {
-    try {
-      await pb.collection("clips").delete(clipID);
-    } catch {
-      // This will send the error to a log file
     }
   }
 
