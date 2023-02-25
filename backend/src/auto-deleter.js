@@ -19,7 +19,7 @@ try {
   const clipsQueue = new PriorityQueue((a, b) => b.priority - a.priority);
 
   function addClipID(clipID) {
-    const expirationTime = new Date().getTime() + 0.5 * 60 * 1000;
+    const expirationTime = new Date().getTime() + 5 * 60 * 1000;
     clipsQueue.enq({ item: clipID, priority: expirationTime });
   }
 
