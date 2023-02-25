@@ -1,45 +1,59 @@
 import { initPocketBase } from "./pocketbase.js";
 import PriorityQueue from "priorityqueuejs";
 
-let pb;
-
 try {
-  pb = await initPocketBase();
-} catch (err) {
-  console.error(err);
-  process.exit();
-}
+  const pb = await initPocketBase();
 
-pb.collection("clips").subscribe("*", (event) => {
-  if (event.action != "create") return;
+  pb.collection("clips").subscribe("*", (event) => {
+    if (event.action != "create") return;
 
-  console.log(`Record with id ${event.record.id} created!`);
+    console.log(`Record with id ${event.record.id} created.`);
 
-  addClipID(event.record.id);
-});
+    try {
+      addClipID(event.record.id);
+    } catch (error) {
+      throw new Error(`Error adding clip ID: ${error}`);
+    }
+  });
 
-const clipsQueue = new PriorityQueue((a, b) => a.priority - b.priority);
+  const clipsQueue = new PriorityQueue((a, b) => b.priority - a.priority);
 
-function addClipID(clipID) {
-  const expirationTime = new Date().getTime() + 5 * 60 * 1000;
-  clipsQueue.enq({ item: clipID, priority: expirationTime });
-}
+  function addClipID(clipID) {
+    const expirationTime = new Date().getTime() + 0.5 * 60 * 1000;
+    clipsQueue.enq({ item: clipID, priority: expirationTime });
+  }
 
-function removeExpiredClips() {
-  const now = new Date().getTime();
+  function removeExpiredClips() {
+    const now = new Date().getTime();
 
-  while (!clipsQueue.isEmpty()) {
-    const clipID = clipsQueue.peek().item;
-    const expirationTime = clipsQueue.peek().priority;
+    while (!clipsQueue.isEmpty()) {
+      const clipID = clipsQueue.peek().item;
+      const expirationTime = clipsQueue.peek().priority;
 
-    if (now >= expirationTime) {
-      pb.collection("clips").delete(clipID);
-      console.log(`Record with id ${clipID} automatically deleted`);
-      clipsQueue.deq();
-    } else {
-      break;
+      if (now >= expirationTime) {
+        deleteClip(clipID);
+        clipsQueue.deq();
+      } else {
+        break;
+      }
     }
   }
-}
 
-setInterval(removeExpiredClips, 1000);
+  async function deleteClip(clipID) {
+    try {
+      await pb.collection("clips").delete(clipID);
+    } catch {
+      // This will send the error to a log file
+    }
+  }
+
+  setInterval(() => {
+    try {
+      removeExpiredClips();
+    } catch (error) {
+      throw new Error(`Error removing expired clips: ${error}`);
+    }
+  }, 1000);
+} catch (error) {
+  throw new Error(error);
+}
